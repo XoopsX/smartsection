@@ -1,5 +1,7 @@
 <html>
 <head>
+<{* $Id: smartsection_print.html,v 1.2 2012/03/31 11:30:53 ohwada Exp $ *}>
+<{* 2008-10-01 K.OHWADA *}>
 <meta http-equiv="content-type" content="text/html; charset=<{$xoops_charset}>" />
 <meta http-equiv="content-language" content="<{$xoops_langcode}>" />
 <meta name="robots" content="<{$xoops_meta_robots}>" />
@@ -10,7 +12,7 @@
 <meta name="copyright" content="<{$xoops_meta_copyright}>" />
 <meta name="generator" content="XOOPS" />
 <title><{$printtitle}></title>
-<link rel="stylesheet" type="text/css" media="all" href="<{$xoops_url}>/modules/smartcontent/print.css" />
+<{* link rel="stylesheet" type="text/css" media="all" href="<{$xoops_url}>/modules/smartcontent/print.css" / *}>
 </head>
 
 <body>
@@ -27,7 +29,10 @@
     <div style="text-align: right; margin-top: 10px; border: 1px solid; padding: 2px;"><{$printheader}></div>
 
 	<{if !$noTitle}>	
-	  <div id="title"><{$item.title}></div>
+	  <{* div id="title" *}>
+	  <div style="padding-top: 5px; font-size: 14px; font-weight: bold"><{$item.title}></div>
+<{* added categoryname *}>
+	  <div style="padding-top: 2px; "><{$lang_category}> : <{$item.categoryname}></div>
 	<{/if}>
      <{if $display_whowhen_link}>
         <div style="padding-top: 2px; "><{$lang_author_date}> </div>

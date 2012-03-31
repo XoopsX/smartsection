@@ -1,4 +1,4 @@
-$Id: readme_220.txt,v 1.1 2012/03/31 11:33:50 ohwada Exp $
+$Id: readme_220.txt,v 1.2 2012/03/31 11:37:20 ohwada Exp $
 
 =================================================
 Title:   SmartSection 2.20
@@ -77,4 +77,5 @@ http://community.impresscms.org/modules/newbb/viewtopic.php?topic_id=2512&post_i
 - admin/pagewrap.php
 - class/session.php
 - include/functions.php
+- sql/mysql.sql
 
