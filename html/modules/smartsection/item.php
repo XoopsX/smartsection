@@ -1,7 +1,13 @@
 <?php
+// $Id: item.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2008-10-01 K.OHWADA
+// Warning [PHP]: Invalid argument supplied for foreach()
+// Notice [PHP]: Undefined variable: com_itemid
+// http://community.impresscms.org/modules/newbb/viewtopic.php?topic_id=2512&post_id=23641
 
 /**
-* $Id: item.php,v 1.1 2012/03/31 09:53:55 ohwada Exp $
+* Id: item.php 1440 2008-04-05 13:27:01Z malanciault 
 * Module: SmartSection
 * Author: The SmartFactory <www.smartfactory.ca>
 * Licence: GNU
@@ -210,7 +216,13 @@ if (file_exists(XOOPS_ROOT_PATH . '/modules/smartobject/include/rating.rate.php'
 }
 
 // Include the comments if the selected ITEM supports comments
-if (($itemObj->cancomment() == 1) || (!$xoopsModuleConfig['commentatarticlelevel'] && smartsection_getConfig('com_rule') <> 0)) {
+
+// -----
+// Notice [PHP]: Undefined variable: com_itemid
+//if (($itemObj->cancomment() == 1) || (!$xoopsModuleConfig['commentatarticlelevel'] && smartsection_getConfig('com_rule') <> 0)) {
+if ( (($itemObj->cancomment() == 1) || !$xoopsModuleConfig['commentatarticlelevel'] ) && (smartsection_getConfig('com_rule') <> 0) ) {
+// -----
+
 	include_once XOOPS_ROOT_PATH . "/include/comment_view.php";
 // Problem with url_rewrite and posting comments :
 $xoopsTpl->assign(array('editcomment_link' => SMARTSECTION_URL . 'comment_edit.php?com_itemid='.$com_itemid.'&amp;com_order='.$com_order.'&amp;com_mode='.$com_mode.''.$link_extra, 'deletecomment_link' => SMARTSECTION_URL . 'comment_delete.php?com_itemid='.$com_itemid.'&amp;com_order='.$com_order.'&amp;com_mode='.$com_mode.''.$link_extra, 'replycomment_link' => SMARTSECTION_URL . 'comment_reply.php?com_itemid='.$com_itemid.'&amp;com_order='.$com_order.'&amp;com_mode='.$com_mode.''.$link_extra));
@@ -221,9 +233,19 @@ $xoopsTpl->assign('rating_enabled', $xoopsModuleConfig['rating_enabled']);
 
 $newGroupsArray = array();
 $newGroupsArray[0] = 'None';
-foreach($groups as $key=>$value) {
-	$newGroupsArray[$key] = $value;
+
+// -----
+// Notice [PHP]: Undefined variable: groups 
+// Warning [PHP]: Invalid argument supplied for foreach() 
+//foreach($groups as $key=>$value) {
+//	$newGroupsArray[$key] = $value;
+//}
+if ( is_array($groups) ) {
+	foreach($groups as $key=>$value) {
+		$newGroupsArray[$key] = $value;
+	}
 }
+//-----
 
 //code to include smartie
 /*if (file_exists(XOOPS_ROOT_PATH . '/modules/smarttie/smarttie_links.php')) {

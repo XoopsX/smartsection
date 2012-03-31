@@ -1,7 +1,12 @@
 <?php
+// $Id: category.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2008-10-01 K.OHWADA
+// Notice [PHP]: Undefined variable: ret
+// http://community.impresscms.org/modules/newbb/viewtopic.php?topic_id=2512&post_id=23641
 
 /**
-* $Id: category.php,v 1.1 2012/03/31 09:54:11 ohwada Exp $
+* Id: category.php 3433 2008-07-05 10:24:09Z malanciault 
 * Module: SmartSection
 * Author: The SmartFactory <www.smartfactory.ca>
 * Licence: GNU
@@ -195,6 +200,10 @@ class SmartsectionCategory extends XoopsObject
 
 	function getCategoryPathForMetaTitle()
 	{
+//-----
+// Notice [PHP]: Undefined variable: ret	
+		$ret = '';
+//-----
 		$parentid = $this->parentid();
 		$smartsection_category_handler =& xoops_getmodulehandler('category', 'smartsection');
 		if ($parentid != 0) {

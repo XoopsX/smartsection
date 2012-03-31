@@ -1,11 +1,26 @@
 <?php
+// $Id: item.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2012-01-01 K.OHWADA
+// PHP 5.3 : ereg is deprecate
+// PHP 5.3 : Assigning the return value of new by reference is now deprecated.
+
+// 2008-10-01 K.OHWADA
+// for multibyte language
+// http://community.impresscms.org/modules/newbb/viewtopic.php?topic_id=2514&post_id=23646
 
 /**
-* $Id: item.php,v 1.1 2012/03/31 09:54:09 ohwada Exp $
+* Id: item.php 3436 2008-07-05 10:49:26Z malanciault 
 * Module: SmartSection
 * Author: The SmartFactory <www.smartfactory.ca>
 * Licence: GNU
 */
+
+// --- for multibyte language ---
+if ( !defined("_SSECTION_FLAG_MB_FILE") ) {
+	define("_SSECTION_FLAG_MB_FILE", 1);
+}
+// ----- 
 
 include_once("admin_header.php");
 
@@ -278,6 +293,18 @@ function edititem($showmenu = false, $itemid = 0, $clone = false)
 
 	// IMAGE
 	$image_array =  XoopsLists :: getImgListAsArray( smartsection_getImageDir('item') );
+
+// --- for multibyte language ---
+// convert single byte to original multibyte charactors
+	if ( _SSECTION_FLAG_MB_FILE && is_array($image_array) ) {
+		$arr = array();
+		foreach ($image_array as $k => $v ) {
+			$arr[ $k ] = rawurldecode( str_replace('_25_', '%', $v) );
+		}
+		$image_array = $arr;
+	}
+// -----
+
 	$image_select = new XoopsFormSelect( '', 'image', $itemObj->image() );
 	//$image_select -> addOption ('-1', '---------------');
 	$image_select -> addOptionArray( $image_array );
@@ -461,7 +488,12 @@ if (SMARTSECTION_LEVEL >= 5 ) {
 
 	$dir = smartsection_getUploadDir(true, 'content');
 
-	if(!eregi("777",decoct(fileperms($dir)))) {
+// ---
+// PHP 5.3 : ereg is deprecate
+//	if(!eregi("777",decoct(fileperms($dir)))) {
+	if(!preg_match("/777/",decoct(fileperms($dir)))) {
+// ---
+
 	    echo"<font color='FF0000'><h4>"._AM_SSECTION_PERMERROR."</h4></font>";
 	}
 
@@ -561,7 +593,13 @@ switch ($op) {
 
 	// Creating the item object
 	if ($itemid != 0) {
-		$itemObj =& new SmartsectionItem($itemid);
+
+// ---
+// 2012-01-01 PHP 5.3 : Assigning the return value of new by reference is now deprecated.
+//		$itemObj =& new SmartsectionItem($itemid);
+		$itemObj =  new SmartsectionItem($itemid);
+// ---
+
 	} else {
 		$itemObj = $smartsection_item_handler->create();
 	}
@@ -613,9 +651,29 @@ switch ($op) {
 
 			$uploader = new XoopsMediaUploader(smartsection_getImageDir('item'), $allowed_mimetypes, $max_size, $max_imgwidth, $max_imgheight);
 
+// --- for multibyte language ---
+	if ( _SSECTION_FLAG_MB_FILE ) {
+		$uploader->setPrefix('image');
+	}
+// -----
+
 			if( $uploader->fetchMedia( $filename ) && $uploader->upload() ) {
 
-				$itemObj->setVar('image', $uploader->getSavedFileName());
+// --- for multibyte language ---
+// convert multibyte charactors to single byte 
+//				$itemObj->setVar('image', $uploader->getSavedFileName());
+	if ( _SSECTION_FLAG_MB_FILE ) {
+		$savedFileName = $uploader->getSavedFileName();
+		$mediaName     = $uploader->getMediaName();
+		$encodedName   = str_replace('%', '_25_', rawurlencode($mediaName) );
+		$uploadDir     = smartsection_getImageDir('item');
+		rename( $uploadDir.$savedFileName , $uploadDir.$encodedName );
+		$itemObj->setVar('image', $encodedName );
+
+	} else {
+		$itemObj->setVar('image', $uploader->getSavedFileName());
+	}
+//-----
 
 			} else {
 				redirect_header( 'javascript:history.go(-1)' , 2, _AM_SSECTION_FILEUPLOAD_ERROR . $uploader->getErrors() ) ;
@@ -710,7 +768,8 @@ switch ($op) {
 		$itemObj->sendNotifications($notifToDo);
 	}
 
-	redirect_header("item.php", 2, $redirect_msg);
+//	redirect_header("item.php", 2, $redirect_msg);
+	redirect_header("item.php", 50, $redirect_msg);
 
 	break;
 

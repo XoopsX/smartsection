@@ -1,7 +1,15 @@
 <?php
+// $Id: print.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2008-10-01 K.OHWADA
+// Parse error: syntax error, unexpected '{'
+// Notice [PHP]: Undefined variable: doNotStartPrint 
+// Notice [PHP]: Undefined variable: noTitle 
+// Notice [PHP]: Undefined variable: smartPopup 
+// http://community.impresscms.org/modules/newbb/viewtopic.php?topic_id=2512&post_id=23641
 
 /**
-* $Id: print.php,v 1.1 2012/03/31 09:53:54 ohwada Exp $
+* Id: print.php 1440 2008-04-05 13:27:01Z malanciault 
 * Module: SmartSection
 * Author: The SmartFactory <www.smartfactory.ca>
 * Licence: GNU
@@ -32,7 +40,13 @@ if ($itemObj->notLoaded()) {
 $categoryObj =& $itemObj->category();
 
 // Check user permissions to access that category of the selected ITEM
-if (!(smartsection_itemAccessGranted($itemObj) {
+
+// -----
+// Parse error: syntax error, unexpected '{'
+// if (!(smartsection_itemAccessGranted($itemObj) {
+if (!(smartsection_itemAccessGranted($itemObj))) {
+// -----
+
 	redirect_header("javascript:history.go(-1)", 1, _NOPERM);
 	exit;
 }
@@ -51,6 +65,15 @@ $xoopsTpl->assign('printheader', $printheader);
 $xoopsTpl->assign('lang_category', _MD_SSECTION_CATEGORY);
 $xoopsTpl->assign('lang_author_date', $who_where);
 $xoopsTpl->assign('item', $item);
+
+//-----
+//Notice [PHP]: Undefined variable: doNotStartPrint 
+//Notice [PHP]: Undefined variable: noTitle 
+//Notice [PHP]: Undefined variable: smartPopup 
+$doNotStartPrint = false;
+$noTitle = false;
+$smartPopup = false;
+//-----
 
 $xoopsTpl->assign('doNotStartPrint', $doNotStartPrint);
 $xoopsTpl->assign('noTitle', $noTitle);

@@ -1,4 +1,11 @@
 <?php
+// $Id: keyhighlighter.class.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2008-10-01 K.OHWADA
+// keyword "abc" match "abccccc"
+// cannot show keyword in Japanese 
+// http://community.impresscms.org/modules/newbb/viewtopic.php?topic_id=2512&post_id=23641
+
 /**
 * This file contains the keyhighlighter class that highlight the chosen keyword in the current output buffer.
 *
@@ -77,10 +84,22 @@ class SmartsectionKeyhighlighter {
 		if ($this->singlewords) {
 			$keywords = explode (' ', $this->preg_keywords);
 			foreach ($keywords as $keyword) {
-				$patterns[] = '/(?' . '>' . $keyword . '+)/si';
+
+// -----
+// keyword "abc" match "abccccc"
+//				$patterns[] = '/(?' . '>' . $keyword . '+)/si';
+				$patterns[] = '/(?' . '>' . preg_quote($keyword) . ')/si';
+// -----
+
 			}
 		} else {
-			$patterns[] = '/(?' . '>' . $this->preg_keywords . '+)/si';
+
+// -----
+// keyword "abc" match "abccccc"
+//			$patterns[] = '/(?' . '>' . $this->preg_keywords . '+)/si';
+			$patterns[] = '/(?' . '>' . preg_quote($this->preg_keywords) . ')/si';
+// -----
+
 		}
 
 		$result = $replace_matches[0];
@@ -101,7 +120,17 @@ class SmartsectionKeyhighlighter {
 	*/
 	function highlight ($buffer) {
 		$buffer = '>' . $buffer . '<';
-		$this->preg_keywords = preg_replace ('/[^\w ]/si', '', $this->keywords);
+
+// -----
+// cannot show keyword in Japanese 
+//		$this->preg_keywords = preg_replace ('/[^\w ]/si', '', $this->keywords);
+		if ( XOOPS_USE_MULTIBYTES ) {
+			$this->preg_keywords = trim($this->keywords);
+		} else {
+			$this->preg_keywords = preg_replace ('/[^\w ]/si', '', $this->keywords);
+		}
+// -----
+
 		$buffer = preg_replace_callback ("/(\>(((?" . ">[^><]+)|(?R))*)\<)/is", array (&$this, 'replace'), $buffer);
 		$buffer = substr ($buffer, 1, -1);
 		return $buffer;

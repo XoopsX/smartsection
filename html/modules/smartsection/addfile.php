@@ -1,7 +1,11 @@
 <?php
+// $Id: addfile.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2012-01-01 K.OHWADA
+// PHP 5.3 : Assigning the return value of new by reference is now deprecated.
 
 /**
-* $Id: addfile.php,v 1.1 2012/03/31 09:53:54 ohwada Exp $
+* Id: addfile.php 331 2007-12-23 16:01:11Z malanciault 
 * Module: SmartSection
 * Author: The SmartFactory <www.smartfactory.ca>
 * Licence: GNU
@@ -38,7 +42,13 @@ if ($itemid == 0) {
 	redirect_header("index.php", 2, _MD_SSECTION_NOITEMSELECTED);
 	exit();
 } else {
-	$itemObj =& new SmartsectionItem($itemid);
+
+// ---
+// 2012-01-01 PHP 5.3 : Assigning the return value of new by reference is now deprecated.
+//	$itemObj =& new SmartsectionItem($itemid);
+	$itemObj =  new SmartsectionItem($itemid);
+// ---
+
 }
 $false = false;
 switch ($op) {

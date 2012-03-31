@@ -1,7 +1,12 @@
 <?php
+// $Id: xoops_version.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2012-01-01 K.OHWADA
+// version 2.20
+// set NO to default in htaccess
 
 /**
-* $Id: xoops_version.php,v 1.1 2012/03/31 09:53:54 ohwada Exp $
+* Id: xoops_version.php 3441 2008-07-05 11:44:44Z malanciault 
 * Module: SmartSection
 * Author: The SmartFactory <www.smartfactory.ca>
 * Licence: GNU
@@ -12,7 +17,13 @@ if (!defined("XOOPS_ROOT_PATH")) {
 }
 
 $modversion['name'] = _MI_SSECTION_MD_NAME;
-$modversion['version'] = 2.14;
+
+// ---
+// version 2.20
+// $modversion['version'] = 2.15;
+$modversion['version'] = 2.20;
+// ---
+
 $modversion['description'] = _MI_SSECTION_MD_DESC;
 $modversion['author'] = "The SmartFactory [www.smartfactory.ca]";
 $modversion['credits'] = "w4z004, hsalazar, Mithrandir, fx2024, Ackbarr, Mariuss, Marco, Michiel, phppp, outch, Xvitry, Catzwolf, Shine, McDonald";
@@ -36,14 +47,19 @@ if (file_exists(XOOPS_ROOT_PATH . "/modules/" . $modversion['dirname'] . "/image
 // Added by marcan for the About page in admin section
 $modversion['adminMenu'] = "smartsection_adminMenu";
 $modversion['modFooter'] = "smartsection_modFooter";
-$modversion['developer_lead'] = "marcan [Marc-André Lanciault]";
+$modversion['developer_lead'] = "marcan [Marc-Andre Lanciault]";
 $modversion['developer_contributor'] = "w4z004, hsalazar, Mithrandir, fx2024, Ackbarr, Mariuss, Marco, Michiel, phppp, outch, Xvitry & Catzwolf";
 $modversion['developer_website_url'] = "http://smartfactory.ca";
 $modversion['developer_website_name'] = "The SmartFactory";
 $modversion['developer_email'] = "marcan@smartfactory.ca";
 $modversion['status_version'] = "Final";
 $modversion['status'] = "Final";
-$modversion['date'] = "2008-07-05";
+
+// ---
+// version 2.20
+// $modversion['date'] = "2008-07-05";
+$modversion['date'] = "2012-01-01";
+// ---
 
 $modversion['warning'] = _MI_SSECTION_WARNING_FINAL;
 
@@ -54,15 +70,15 @@ $modversion['support_site_name'] = "The ImpressCMS Community";
 $modversion['submit_bug'] = "http://community.impresscms.org/modules/newbb/viewforum.php?forum=71";
 $modversion['submit_feature'] = "http://community.impresscms.org/modules/newbb/viewforum.php?forum=71";
 
-$modversion['people']['developers'][] = "marcan (Marc-André Lanciault)";
+$modversion['people']['developers'][] = "marcan (Marc-Andre Lanciault)";
 $modversion['people']['developers'][] = "Mithrandir (Jan Keller Pedersen)";
 $modversion['people']['developers'][] = "Sudhaker (Sudhaker Raj)";
 $modversion['people']['developers'][] = "stranger";
 
 $modversion['people']['testers'][] = "Andy Cleff";
-$modversion['people']['testers'][] = "Félix Tousignant";
-$modversion['people']['testers'][] = "Frédéric Tousignant";
-$modversion['people']['testers'][] = "Pier-André Roy";
+$modversion['people']['testers'][] = "Felix Tousignant";
+$modversion['people']['testers'][] = "Frederic Tousignant";
+$modversion['people']['testers'][] = "Pier-Andre Roy";
 
 $modversion['author_word'] = "";
 
@@ -247,6 +263,43 @@ $modversion['templates'][$i]['description'] = '(Admin) Tabs bar for administrati
 
 // Config Settings (only for modules that need config settings generated automatically)
 $i = 0;
+
+$i++;
+$modversion['config'][$i]['name'] = 'htaccess';
+$modversion['config'][$i]['title'] = '_MI_SSECTION_HTACCESS';
+$modversion['config'][$i]['description'] = '_MI_SSECTION_HTACCESSDSC';
+$modversion['config'][$i]['formtype'] = 'yesno';
+$modversion['config'][$i]['valuetype'] = 'int';
+
+// ---
+// set NO to default in htaccess
+// $modversion['config'][$i]['default'] = '1';
+$modversion['config'][$i]['default'] = '0';
+// ---
+
+$i++;
+$modversion['config'][$i]['name'] = 'basepath';
+$modversion['config'][$i]['title'] = '_MI_SSECTION_BASEPATH';
+$modversion['config'][$i]['description'] = '_MI_SSECTION_BASEPATHDSC';
+$modversion['config'][$i]['formtype'] = 'text';
+$modversion['config'][$i]['valuetype'] = 'text';
+$modversion['config'][$i]['default'] = 'publications';
+
+$i++;
+$modversion['config'][$i]['name'] = 'endofurl_html';
+$modversion['config'][$i]['title'] = '_MI_SSECTION_ENDOFURL_HTML';
+$modversion['config'][$i]['description'] = '_MI_SSECTION_ENDOFURL_HTMLDSC';
+$modversion['config'][$i]['formtype'] = 'text';
+$modversion['config'][$i]['valuetype'] = 'text';
+$modversion['config'][$i]['default'] = '.html';
+
+$i++;
+$modversion['config'][$i]['name'] = 'endofurl_pdf';
+$modversion['config'][$i]['title'] = '_MI_SSECTION_ENDOFURL_PDF';
+$modversion['config'][$i]['description'] = '_MI_SSECTION_ENDOFURL_PDFDSC';
+$modversion['config'][$i]['formtype'] = 'text';
+$modversion['config'][$i]['valuetype'] = 'text';
+$modversion['config'][$i]['default'] = '.pdf';
 
 $i++;
 $modversion['config'][$i]['name'] = 'show_subcats';

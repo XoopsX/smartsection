@@ -1,7 +1,11 @@
 <?php
+// $Id: file.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2012-01-01 K.OHWADA
+// PHP 5.3 : Assigning the return value of new by reference is now deprecated.
 
 /**
-* $Id: file.php,v 1.1 2012/03/31 09:54:08 ohwada Exp $
+* Id: file.php 3436 2008-07-05 10:49:26Z malanciault 
 * Module: SmartSection
 * Author: The SmartFactory <www.smartfactory.ca>
 * Licence: GNU
@@ -155,7 +159,13 @@ switch ($op) {
 
 	// Creating the file object
 	if ($fileid != 0) {
-		$fileObj =& new SmartsectionFile($fileid);
+
+// ---
+// 2012-01-01 PHP 5.3 : Assigning the return value of new by reference is now deprecated.
+//		$fileObj =& new SmartsectionFile($fileid);
+		$fileObj =  new SmartsectionFile($fileid);
+// ---
+
 	} else {
 		$fileObj = $smartsection_file_handler->create();
 	}

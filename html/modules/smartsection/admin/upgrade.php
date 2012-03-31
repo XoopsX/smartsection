@@ -1,7 +1,11 @@
 <?php
+// $Id: upgrade.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2012-01-01 K.OHWADA
+// Migrating to MySQL 5.5
 
 /**
-* $Id: upgrade.php,v 1.1 2012/03/31 09:54:08 ohwada Exp $
+* Id: upgrade.php 3436 2008-07-05 10:49:26Z malanciault 
 * Module: SmartClient
 * Author: The SmartFactory <www.smartfactory.ca>
 * Credit : Thanks to the xHelp development team :-)
@@ -377,7 +381,12 @@ function upgradeDB()
 	  							  mime_admin int(1) NOT NULL default '1',
 	  							  mime_user int(1) NOT NULL default '0',
 	  							  KEY mime_id (mime_id)
-	  							  ) TYPE=MyISAM;");
+
+// ---
+// Migrating to MySQL 5.5
+//	  							  ) TYPE=MyISAM;");
+	  							  ) ENGINE=MyISAM;");
+// ---
 
 	        $table->setData("1, 'bin', 'application/octet-stream', 'Binary File/Linux Executable', 0, 0");
 			$table->setData("2, 'dms', 'application/octet-stream', 'Amiga DISKMASHER Compressed Archive', 0, 0");

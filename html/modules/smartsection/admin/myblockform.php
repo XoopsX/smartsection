@@ -1,5 +1,10 @@
 <?php
-// $Id: myblockform.php,v 1.1 2012/03/31 09:54:07 ohwada Exp $
+// $Id: myblockform.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2012-01-01 K.OHWADA
+// PHP 5.3 : ereg is deprecate
+
+// Id: myblockform.php 331 2007-12-23 16:01:11Z malanciault 
 //  ------------------------------------------------------------------------ //
 //                XOOPS - PHP Content Management System                      //
 //                    Copyright (c) 2000 XOOPS.org                           //
@@ -121,13 +126,31 @@ $form->addElement($button_tray);
 function check_browser_can_use_spaw() {
 	$browser = $_SERVER['HTTP_USER_AGENT'] ;
 	// check if msie
-	if( eregi( "MSIE[^;]*" , $browser , $msie ) ) {
+
+// ---
+// PHP 5.3 : ereg is deprecate
+//	if( eregi( "MSIE[^;]*" , $browser , $msie ) ) {
+	if( preg_match( "/MSIE[^;]*\i" , $browser , $msie ) ) {
+// ---
+
 		// get version 
-		if( eregi( "[0-9]+\.[0-9]+" , $msie[0] , $version ) ) {
+
+// ---
+// PHP 5.3 : ereg is deprecate
+//		if( eregi( "[0-9]+\.[0-9]+" , $msie[0] , $version ) ) {
+		if( preg_match( "/[0-9]+\.[0-9]+/" , $msie[0] , $version ) ) {
+// ---
+
 			// check version
 			if( (float)$version[0] >= 5.5 ) {
 				// finally check if it's not opera impersonating ie
-				if( ! eregi( "opera" , $browser ) ) {
+
+// ---
+// PHP 5.3 : ereg is deprecate
+//				if( ! eregi( "opera" , $browser ) ) {
+				if( ! preg_match( "/opera/i" , $browser ) ) {
+// ---
+
 					return true ;
 				}
 			}

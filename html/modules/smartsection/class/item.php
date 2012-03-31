@@ -1,7 +1,15 @@
 <?php
+// $Id: item.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2008-10-01 K.OHWADA
+// enable PDF & Print
+// sanitize input parameter
+// http://community.impresscms.org/modules/newbb/viewtopic.php?topic_id=2512&post_id=23641
+// Email button: convert for Japanese
+// http://community.impresscms.org/modules/newbb/viewtopic.php?topic_id=2515&post_id=23657
 
 /**
-* $Id: item.php,v 1.1 2012/03/31 09:54:12 ohwada Exp $
+* Id: item.php 1428 2008-04-05 01:59:04Z malanciault 
 * Module: SmartSection
 * Author: The SmartFactory <www.smartfactory.ca>
 * Licence: GNU
@@ -25,6 +33,10 @@ define("_SSECTION_NOT_CATEGORY_CREATED", 1);
 define("_SSECTION_NOT_ITEM_SUBMITTED", 2);
 define("_SSECTION_NOT_ITEM_PUBLISHED", 3);
 define("_SSECTION_NOT_ITEM_REJECTED", 4);
+
+// --- for Japanese ---
+define("_SSECTION_FLAG_JP_CONVERT", 1);
+// --- for Japanese ---
 
 class SmartsectionItem extends XoopsObject
 {
@@ -544,8 +556,29 @@ class SmartsectionItem extends XoopsObject
 		$adminLinks .= '<a href="' . smartsection_seo_genUrl("print", $this->itemid(), $this->short_url()) . '"><img src="' . SMARTSECTION_URL . 'images/links/print.gif" title="' . _MD_SSECTION_PRINT . '" alt="' . _MD_SSECTION_PRINT . '"/></a>';
 		$adminLinks .= " ";
 */
+
+//-----
+// enable PDF & Print
+		if (SMARTSECTION_LEVEL > 0) {
+			// PDF button
+			$adminLinks .= "<a href='" . SMARTSECTION_URL . "makepdf.php?itemid=" . $this->itemid() . "'><img src='" . SMARTSECTION_URL . "images/links/pdf.gif' title='" . _MD_SSECTION_PDF . "' alt='" . _MD_SSECTION_PDF . "'/></a>";
+			$adminLinks .= " ";
+		}
+
+		// Print button
+		$adminLinks .= '<a href="' . smartsection_seo_genUrl("print", $this->itemid(), $this->short_url()) . '"><img src="' . SMARTSECTION_URL . 'images/links/print.gif" title="' . _MD_SSECTION_PRINT . '" alt="' . _MD_SSECTION_PRINT . '"/></a>';
+		$adminLinks .= " ";
+// -----
+
 		// Email button
 		$maillink = "mailto:?subject=" . sprintf(_MD_SSECTION_INTITEM, $xoopsConfig['sitename']) . "&amp;body=" . sprintf(_MD_SSECTION_INTITEMFOUND, $xoopsConfig['sitename']) . ": " . $this->getItemUrl();
+
+// --- for Japanese ---
+if ( _SSECTION_FLAG_JP_CONVERT ) {
+	$maillink = $this->maillink_for_japanese($maillink);
+}
+// ----- 
+
 		$adminLinks .= '<a href="' . $maillink . '"><img src="' . SMARTSECTION_URL . 'images/links/friend.gif" title="' . _MD_SSECTION_MAIL . '" alt="' . _MD_SSECTION_MAIL . '"/></a>';
 		$adminLinks .= " ";
 
@@ -824,6 +857,21 @@ class SmartsectionItem extends XoopsObject
 		$smartsection_metagen->createMetaTags();
 	}
 
+// --- for Japanese ---
+function maillink_for_japanese($str)
+{
+// no action, if not Japanese
+	global $xoopsConfig;
+	$language = $xoopsConfig['language'] ;
+	if (( $language != 'japanese' )&&( $language != 'ja_utf8' )) {
+		return $str;
+	}
+
+	$str = "mailto:?subject=WebSite&amp;body=" . $this->getItemUrl();
+	return $str;
+}
+// -----
+
 }
 
 /**
@@ -857,7 +905,12 @@ class SmartsectionItemHandler extends XoopsObjectHandler
 	function &get($id)
 	{
 		if (intval($id) > 0) {
-			$sql = 'SELECT * FROM '.$this->db->prefix('smartsection_items').' WHERE itemid='.$id;
+
+// -----
+// sanitize input parameter
+//			$sql = 'SELECT * FROM '.$this->db->prefix('smartsection_items').' WHERE itemid='.$id;
+			$sql = 'SELECT * FROM '.$this->db->prefix('smartsection_items').' WHERE itemid='.intval($id);
+// -----
 
 			if (!$result = $this->db->query($sql)) {
 				return false;
@@ -1776,5 +1829,6 @@ class SmartsectionItemHandler extends XoopsObjectHandler
 
 	    return $resultCatCounts;
 	}
+
 }
 ?>

@@ -1,3 +1,26 @@
+<!-- $Id: changelog.txt,v 1.2 2012/03/31 11:30:53 ohwada Exp $ -->
+
+<b><u>=> Version 2.20 (2012-03-31)</u></b>
+
+This version adds the following changes to 2.14 2.15
+because the offical development site was lost. 
+<a href="http://linux2.ohwada.net/" target="_blank">K.OHWADA - Happy Linux</a>
+
+- Improved : <a href="http://www.php.net/manual/en/migration53.deprecated.php" target="_blank">Migrating to PHP 5.3</a>
+(1) ereg
+(2) Assigning the return value of new by reference is now deprecated.
+
+- Improved : Migrating to MySQL 5.5
+(1) TYPE=MyISAM -> ENGINE=MyISAM
+
+- Added : Japanaese language pack 
+- Improved : <a href="http://community.impresscms.org/modules/newbb/viewtopic.php?topic_id=2513&post_id=23643" target="_blank">SmartSection 2.14 patch for XOOPS Cube Legacy</a> ( Impresscms fourm )
+- Improved : <a href="http://community.impresscms.org/modules/newbb/viewtopic.php?topic_id=2514&post_id=23646" target="_blank">SmartSection 2.14 patch for upload multibyte filename</a> ( Impresscms fourm )
+- Improved : <a href="http://community.impresscms.org/modules/newbb/viewtopic.php?topic_id=2515&post_id=23657" target="_blank">SmartSection 2.14 patch for Email button</a> ( Impresscms fourm )
+- Fixed : <a href="http://community.impresscms.org/modules/newbb/viewtopic.php?topic_id=2512&post_id=23641" target="_blank">SmartSection 2.14 bugs and patches</a> ( Impresscms fourm )
+- Fixed : undefined constant and index in addfile.php
+
+
 <b><u>=> Version 2.14 Final (2008-07-05)</u></b>
 
 - Added : New PDF generator to be used on ICMS 1.1 with tcpdf (stranger)

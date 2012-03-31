@@ -1,6 +1,12 @@
 <?php
+// $Id: functions.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2012-01-01 K.OHWADA
+// Notice [PHP]: Use of undefined constant _AM_SSECTION_FILEUPLOAD_ERROR
+// Notice [PHP]: Undefined index: status
+
 /**
-* $Id: functions.php,v 1.1 2012/03/31 09:53:56 ohwada Exp $
+* Id: functions.php 1565 2008-04-13 14:54:29Z malanciault 
 * Module: SmartSection
 * Author: The SmartFactory <www.smartfactory.ca>
 * Licence: GNU
@@ -1260,7 +1266,13 @@ function smartsection_upload_file($another = false, $withRedirect=true, &$itemOb
 	$session = SmartsectionSession::singleton();
 	$session->set('smartsection_file_filename', isset($_POST['name']) ? $_POST['name'] : '');
 	$session->set('smartsection_file_description', isset($_POST['description']) ? $_POST['description'] : '');
-	$session->set('smartsection_file_status', $_POST['status']);
+
+// ---
+// Notice [PHP]: Undefined index: status
+//	$session->set('smartsection_file_status', $_POST['status']);
+	$session->set('smartsection_file_status', isset($_POST['file_status']) ? intval($_POST['file_status']) : 1);
+// ---
+
 	$session->set('smartsection_file_uid', $uid);
 	$session->set('smartsection_file_itemid', $itemid);
 
@@ -1289,6 +1301,7 @@ function smartsection_upload_file($another = false, $withRedirect=true, &$itemOb
     $mimetypes =& $hMime->getObjects($crit);
     // TODO : display the available mimetypes to the user
 	*/
+
     if($xoopsModuleConfig['allowupload'] && is_uploaded_file($_FILES['userfile']['tmp_name'])){
         if (!$ret = $fileObj->checkUpload('userfile', $allowed_mimetypes, $errors)) {
             $errorstxt = implode('<br />', $errors);
@@ -1305,15 +1318,30 @@ function smartsection_upload_file($another = false, $withRedirect=true, &$itemOb
 	// Storing the file
 	if ( !$fileObj->store($allowed_mimetypes) ) {
 		if ($withRedirect) {
-			redirect_header("file.php?op=mod&itemid=" . $fileObj->itemid(), 3, _AM_SSECTION_FILEUPLOAD_ERROR . smartsection_formatErrors($fileObj->getErrors()));
+
+// ---
+// Notice [PHP]: Use of undefined constant _AM_SSECTION_FILEUPLOAD_ERROR
+//			redirect_header("file.php?op=mod&itemid=" . $fileObj->itemid(), 3, _AM_SSECTION_FILEUPLOAD_ERROR . smartsection_formatErrors($fileObj->getErrors()));
+			redirect_header("file.php?op=mod&itemid=" . $fileObj->itemid(), 3, _MD_SSECTION_FILEUPLOAD_ERROR . smartsection_formatErrors($fileObj->getErrors()));
+// ---
 			exit;
 		}else {
-			return _AM_SSECTION_FILEUPLOAD_ERROR . smartsection_formatErrors($fileObj->getErrors());
+
+// ---
+//			return _AM_SSECTION_FILEUPLOAD_ERROR . smartsection_formatErrors($fileObj->getErrors());
+			return _MD_SSECTION_FILEUPLOAD_ERROR . smartsection_formatErrors($fileObj->getErrors());
+// ---
+
 		}
 	}
 	if ($withRedirect) {
 		$redirect_page = $another ? 'file.php' : 'item.php';
-		redirect_header($redirect_page . "?op=mod&itemid=" . $fileObj->itemid(), 2, _AM_SSECTION_FILEUPLOAD_SUCCESS);
+
+// ---
+//		redirect_header($redirect_page . "?op=mod&itemid=" . $fileObj->itemid(), 2, _AM_SSECTION_FILEUPLOAD_SUCCESS);
+		redirect_header($redirect_page . "?op=mod&itemid=" . $fileObj->itemid(), 2, _MD_SSECTION_FILEUPLOAD_SUCCESS);
+// ---
+
 	} else {
 		return true;
 	}

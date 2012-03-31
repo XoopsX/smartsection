@@ -1,7 +1,11 @@
 <?php
+// $Id: pagewrap.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2012-01-01 K.OHWADA
+// PHP 5.3 : ereg is deprecate
 
 /**
-* $Id: pagewrap.php,v 1.1 2012/03/31 09:54:09 ohwada Exp $
+* Id: pagewrap.php 331 2007-12-23 16:01:11Z malanciault 
 * Module: SmartSection
 * Author: The SmartFactory <www.smartfactory.ca>
 * Credits : TinyContent developped by Tobias Liegl (AKA CHAPI) (http://www.chapi.de)
@@ -18,7 +22,12 @@ smartsection_collapsableBar('pagewraptable', 'pagewrapicon', _AM_SSECTION_PAGEWR
 	
 $dir = smartsection_getUploadDir(true, 'content');
 
-if(!eregi("777",decoct(fileperms($dir)))) {
+// ---
+// PHP 5.3 : ereg is deprecate
+//if(!eregi("777",decoct(fileperms($dir)))) {
+if(!preg_match("/777/",decoct(fileperms($dir)))) {
+// ---
+
     echo"<font color='FF0000'><h4>"._AM_SSECTION_PERMERROR."</h4></font>";
 }
 

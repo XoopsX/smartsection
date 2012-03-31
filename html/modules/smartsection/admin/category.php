@@ -1,7 +1,11 @@
 <?php
+// $Id: category.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2012-01-01 K.OHWADA
+// PHP 5.3 : Assigning the return value of new by reference is now deprecated.
 
 /**
-* $Id: category.php,v 1.1 2012/03/31 09:54:08 ohwada Exp $
+* Id: category.php 1429 2008-04-05 02:00:06Z malanciault 
 * Module: SmartSection
 * Author: The SmartFactory <www.smartfactory.ca>
 * Licence: GNU
@@ -85,7 +89,11 @@ function editcat($showmenu = false, $categoryid = 0, $nb_subcats=4, $categoryObj
 		smartsection_collapsableBar('createtable', 'createtableicon', _AM_SSECTION_CATEGORY_CREATE, _AM_SSECTION_CATEGORY_CREATE_INFO);
 	}
 
-	$sform =& new SmartsectionForm_EditCategory( $categoryObj, $nb_subcats );
+// ---
+// 2012-01-01 PHP 5.3 : Assigning the return value of new by reference is now deprecated.
+//	$sform =& new SmartsectionForm_EditCategory( $categoryObj, $nb_subcats );
+	$sform =  new SmartsectionForm_EditCategory( $categoryObj, $nb_subcats );
+// ---
 
 	if ( !$categoryid ) {
 		$sform->display();

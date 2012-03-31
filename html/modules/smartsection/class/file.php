@@ -1,7 +1,14 @@
 <?php
+// $Id: file.php,v 1.2 2012/03/31 11:30:53 ohwada Exp $
+
+// 2008-10-01 K.OHWADA
+// Warning [PHP]: Missing argument 1 for store()
+// http://community.impresscms.org/modules/newbb/viewtopic.php?topic_id=2512&post_id=23641
+// for multibyte language
+// http://community.impresscms.org/modules/newbb/viewtopic.php?topic_id=2514&post_id=23646
 
 /**
-* $Id: file.php,v 1.1 2012/03/31 09:54:11 ohwada Exp $
+* Id: file.php 331 2007-12-23 16:01:11Z malanciault 
 * Module: SmartSection
 * Author: The SmartFactory <www.smartfactory.ca>
 * Licence: GNU
@@ -17,6 +24,12 @@ include_once XOOPS_ROOT_PATH.'/modules/smartsection/include/common.php';
 define("_SSECTION_STATUS_FILE_NOTSET", -1);
 define("_SSECTION_STATUS_FILE_ACTIVE", 1);
 define("_SSECTION_STATUS_FILE_INACTIVE", 2);
+
+// --- for multibyte language ---
+if ( !defined("_SSECTION_FLAG_MB_FILE") ) {
+	define("_SSECTION_FLAG_MB_FILE", 1);
+}
+// ----- 
 
 class SmartsectionFile extends XoopsObject
 {
@@ -111,11 +124,36 @@ class SmartsectionFile extends XoopsObject
 
         $uploader = new XoopsMediaUploader(smartsection_getUploadDir().'/', $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
         if ($uploader->fetchMedia($post_field)) {
-            $uploader->setTargetFileName($itemid."_". $uploader->getMediaName());
+
+// --- for multibyte language ---
+// convert multibyte charactors to single byte 
+//          $uploader->setTargetFileName($itemid."_". $uploader->getMediaName());
+	if ( _SSECTION_FLAG_MB_FILE ) {
+		$mediaName     = $uploader->getMediaName();
+		$encodedName   = str_replace('%', '_25_', rawurlencode($mediaName) );
+		$fileName      = $itemid."_". $encodedName ;
+		$uploader->setTargetFileName( $fileName );
+	} else {
+		$uploader->setTargetFileName( $itemid."_". $uploader->getMediaName() );
+	}
+//-----
+
             if ($uploader->upload()) {
                 $this->setVar('filename', $uploader->getSavedFileName());
                 if ($this->getVar('name') == '') {
-                	$this->setVar('name', $this->getNameFromFilename());
+
+// --- for multibyte language ---
+// convert single byte to original multibyte charactors
+//                	$this->setVar('name', $this->getNameFromFilename());
+	if ( _SSECTION_FLAG_MB_FILE ) {
+		$fileName     = $this->getNameFromFilename() ;
+		$decodedName  = rawurldecode( str_replace('_25_', '%', $fileName) ) ;
+		$this->setVar('name', $decodedName );
+	} else {
+		$this->setVar('name', $this->getNameFromFilename());
+	}
+//-----
+
                 }
                 $this->setVar('mimetype', $uploader->getMediaType());
                 return true;
@@ -130,7 +168,12 @@ class SmartsectionFile extends XoopsObject
         }
 	}
 
-	function store(&$allowed_mimetypes, $force = true, $doupload =true)
+// -----
+// Warning [PHP]: Missing argument 1 for store(), called in admin/file.php on line 169
+//	function store(&$allowed_mimetypes, $force = true, $doupload =true)
+	function store( $allowed_mimetypes = null, $force = true, $doupload =true)
+// -----
+
 	{
 		if ($this->isNew()) {
 			$errors = array();
