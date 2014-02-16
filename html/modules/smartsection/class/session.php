@@ -75,7 +75,7 @@ class SmartsectionSession {
         static $_sess;
         
         if (!isset($_sess)) {
-            $_sess =& new SmartsectionSession();
+            $_sess = new SmartsectionSession();
         }
         return $_sess;
     }
