@@ -19,7 +19,7 @@ class SmartsectionForm_EditCategory extends XoopsThemeForm {
 		$member_handler =& xoops_gethandler('member');
 		$this->userGroups = $member_handler->getGroupList();
 		
-		$this->XoopsThemeForm( _AM_SSECTION_CATEGORY, "op", xoops_getenv('PHP_SELF') );
+		$this->XoopsForm( _AM_SSECTION_CATEGORY, "op", xoops_getenv('PHP_SELF') );
 		$this->setExtra('enctype="multipart/form-data"');
 
 		$this->createElements();
@@ -42,11 +42,14 @@ class SmartsectionForm_EditCategory extends XoopsThemeForm {
 		$this->addElement( new XoopsFormText(_AM_SSECTION_CATEGORY, 'name', 50, 255, $this->targetObject->name('e')), true);
 		
 		// Description
-		$this->addElement( new XoopsFormTextArea(_AM_SSECTION_COLDESCRIPT, 'description', $this->targetObject->description('e'), 7, 60));
+		//$this->addElement( new XoopsFormTextArea(_AM_SSECTION_COLDESCRIPT, 'description', $this->targetObject->description('e'), 7, 60));
+		$text_description = smartsection_getEditor(_AM_SSECTION_COLDESCRIPT, 'description', $this->targetObject->description('e'), 7, 60);
+		$this->addElement($text_description);
 		
 		if (SMARTSECTION_LEVEL > 0 ) {
 			// Header
-			$text_header = smartsection_getEditor(_AM_SSECTION_CATEGORY_HEADER, 'header', $this->targetObject->header('e'));
+			//$text_header = smartsection_getEditor(_AM_SSECTION_CATEGORY_HEADER, 'header', $this->targetObject->header('e'));
+			$text_header = new XoopsFormTextArea(_AM_SSECTION_CATEGORY_HEADER, 'header', $this->targetObject->header('e'));
 			$text_header->setDescription(_AM_SSECTION_CATEGORY_HEADER_DSC);
 			$this->addElement($text_header);
 		}
