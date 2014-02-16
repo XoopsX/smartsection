@@ -91,11 +91,11 @@ if ($op == 'go')
                 echo "        <para>".encodeText ($a_answer)."</para>\r\n";
                 echo "      </answer>\r\n";
             }
-            mysql_free_result ($resultA);
+            $xoopsDB->freeRecordSet($resultA);
             
             echo "    </qandaentry>\r\n";
         }
-        mysql_free_result ($resultQ);
+        $xoopsDB->freeRecordSet($resultQ);
         
         echo "  </qandadiv>\r\n";
     }

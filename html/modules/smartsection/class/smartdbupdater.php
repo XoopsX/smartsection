@@ -18,7 +18,9 @@ if (!function_exists('smart_TableExists')) {
 		//Verifies that a MySQL table exists
 		$xoopsDB =& Database::getInstance();
 		$realname = $xoopsDB->prefix($table);
-		$ret = mysql_list_tables(XOOPS_DB_NAME, $xoopsDB->conn);
+		//$ret = mysql_list_tables(XOOPS_DB_NAME, $xoopsDB->conn);
+		$sql = 'SHOW TABLES FROM '.XOOPS_DB_NAME.' LIKE \''.$realname.'\'';
+		$ret = $xoopsDB->queryF($sql);
 		while (list($m_table)=$xoopsDB->fetchRow($ret)) {
 
 			if ($m_table ==  $realname) {
@@ -36,7 +38,7 @@ if (!function_exists('smart_TableExists')) {
  *
  * @license GNU
  * @author marcan <marcan@smartfactory.ca>
- * @version $Id: smartdbupdater.php,v 1.1 2012/03/31 09:54:11 ohwada Exp $
+ * @version $Id: smartdbupdater.php 331 2007-12-23 16:01:11Z malanciault $
  * @link http://www.smartfactory.ca The SmartFactory
  * @package SmartObject
  */
