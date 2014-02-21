@@ -240,7 +240,7 @@ function edititem($showmenu = false, $itemid = 0, $clone = false)
 
 	if (SMARTSECTION_LEVEL >= 5 ) {
 		// SUMMARY
-		$summary_text = smartsection_getEditor(_AM_SSECTION_SUMMARY, 'summary', $itemObj->getVar('summary', 'e'));
+		$summary_text = smartsection_getEditor(_AM_SSECTION_SUMMARY, 'summary', $itemObj->getVar('summary', 'e'), true, $itemObj->dohtml());
 		$summary_text->setDescription(_AM_SSECTION_SUMMARY_DSC);
 		$sform->addElement($summary_text, false);
 
@@ -266,7 +266,7 @@ function edititem($showmenu = false, $itemid = 0, $clone = false)
 
 		$sform->addElement(new XoopsFormHidden('body', ''));
 	} else {*/
-		$body_text = smartsection_getEditor(_AM_SSECTION_BODY, 'body', $itemObj->getVar('body', 'e'));
+		$body_text = smartsection_getEditor(_AM_SSECTION_BODY, 'body', $itemObj->getVar('body', 'e'), true, $itemObj->dohtml());
 		if (SMARTSECTION_LEVEL >= 5 ) {
 			$body_text->setDescription(sprintf(_AM_SSECTION_BODY_DSC, SMARTSECTION_URL . "/admin/pagewrap_lookup.php"));
 		}

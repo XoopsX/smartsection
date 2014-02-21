@@ -41,13 +41,13 @@ $sform->addElement($category_select);
 $sform->addElement(new XoopsFormText(_MD_SSECTION_TITLE, 'title', 50, 255, $itemObj->title('e')), true);
 
 // SUMMARY
-$summary_text = smartsection_getEditor(_MD_SSECTION_SUMMARY, 'summary', $itemObj->getVar('summary'));
+$summary_text = smartsection_getEditor(_MD_SSECTION_SUMMARY, 'summary', $itemObj->getVar('summary'), true, $itemObj->dohtml());
 $summary_text->setDescription(_MD_SSECTION_SUMMARY_DSC);
 $sform->addElement($summary_text, false);
 
 // BODY
 //$body_text = new XoopsFormDhtmlTextArea(_MD_SSECTION_BODY, 'body', '', 15, 60);
-$body_text = smartsection_getEditor(_MD_SSECTION_BODY_REQ, 'body', $itemObj->getVar('body'));
+$body_text = smartsection_getEditor(_MD_SSECTION_BODY_REQ, 'body', $itemObj->getVar('body'), true, $itemObj->dohtml());
 $body_text->setDescription(_MD_SSECTION_BODY_DSC);
 $sform->addElement($body_text);
 
