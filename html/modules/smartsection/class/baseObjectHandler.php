@@ -278,7 +278,7 @@ Class smartsectionBaseObjectHandler extends XoopsObjectHandler {
      * @return object {@link pagesCategoryHandler}
      * @access public
      */
-    function &getInstance(&$db)
+    public static function &getInstance(&$db)
     {
         static $instance;
         if(!isset($instance)) {
