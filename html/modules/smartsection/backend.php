@@ -24,7 +24,7 @@ header ('Content-Type:text/xml; charset=utf-8');
 $tpl = new XoopsTpl();
 $tpl->xoops_setCaching(2);
 $tpl->xoops_setCacheTime(0);
-$myts = MyTextSanitizer::getInstance();
+(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance();
 if (!$tpl->is_cached('db:smartsection_rss.html')) {
 	$channel_category =  $xoopsModule->name();
 	// Check if ML Hack is installed, and if yes, parse the $content in formatForML

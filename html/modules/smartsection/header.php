@@ -16,6 +16,6 @@ if( !defined("SMARTSECTION_DIRNAME") ){
 include_once XOOPS_ROOT_PATH.'/modules/' . SMARTSECTION_DIRNAME . '/include/common.php';
 
 include_once XOOPS_ROOT_PATH."/class/pagenav.php";
-$myts = MyTextSanitizer::getInstance();
+(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance();
 
 ?>

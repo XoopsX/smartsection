@@ -30,7 +30,7 @@ class SmartsectionMetagen
 	
 	function SmartsectionMetagen($title, $keywords, $description, $categoryPath=false)
 	{
-		$this->_myts = MyTextSanitizer::GetInstance();
+		(method_exists('MyTextSanitizer', 'sGetInstance') and $this->_myts = MyTextSanitizer::sGetInstance()) || $this->_myts = MyTextSanitizer::GetInstance();
 		
 		$this->setCategoryPath($categoryPath);
 		$this->setTitle($title);		

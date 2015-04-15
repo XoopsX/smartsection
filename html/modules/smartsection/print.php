@@ -52,7 +52,7 @@ if (!(smartsection_itemAccessGranted($itemObj))) {
 }
 $xoopsTpl = new XoopsTpl();
 global $xoopsConfig;
-$myts = MyTextSanitizer::getInstance();
+(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance();
 $item=  $itemObj->toArray();
 $printtitle = $xoopsConfig['sitename']." - ".smartsection_metagen_html2text($categoryObj->getCategoryPath())." > ".$myts->displayTarea($item['title']);
 $printheader = $myts->displayTarea(smartsection_getConfig('headerprint'));

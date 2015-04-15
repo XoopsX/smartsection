@@ -238,7 +238,7 @@ class SmartsectionItem extends XoopsObject
 	    	}
 
 			// Check if ML Hack is installed, and if yes, parse the $content in formatForML
-			$myts = MyTextSanitizer::getInstance();
+			(method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance();
 			if (method_exists($myts, 'formatForML')) {
 				$content = $myts->formatForML($content);
 			}
