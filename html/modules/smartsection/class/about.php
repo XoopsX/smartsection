@@ -73,7 +73,7 @@ class SmartsectionAbout
 	function render()
 	{
 		
-		$myts = &MyTextSanitizer::getInstance();
+		(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts = &MyTextSanitizer::getInstance();
 		
 		Global $xoopsModule;
 		

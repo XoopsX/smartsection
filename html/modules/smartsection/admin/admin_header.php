@@ -32,7 +32,7 @@ $imagearray = array(
     'offline' => "<img src='". SMARTSECTION_IMAGES_URL ."/off.png' alt='" . _AM_SSECTION_ICO_OFFLINE . "' align='middle' />",
 	);
 
-$myts = &MyTextSanitizer::getInstance();
+(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts = &MyTextSanitizer::getInstance();
 
 /**
  * Making sure SmartObject is installed

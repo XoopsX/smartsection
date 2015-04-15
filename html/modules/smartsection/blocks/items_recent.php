@@ -14,7 +14,7 @@ function smartsection_items_recent_show($options)
 {
 	include_once(XOOPS_ROOT_PATH."/modules/smartsection/include/common.php");
 
-	$myts = &MyTextSanitizer::getInstance();
+	(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts = &MyTextSanitizer::getInstance();
 
    	$smartModule =& smartsection_getModuleInfo();
 

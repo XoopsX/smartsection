@@ -8,7 +8,7 @@
 */
 
 include_once("admin_header.php");
-$myts = &MyTextSanitizer::getInstance();
+(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts = &MyTextSanitizer::getInstance();
 
 $itemid = isset($_POST['itemid']) ? intval($_POST['itemid']) : 0;
 

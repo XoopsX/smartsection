@@ -100,9 +100,9 @@ class SmartsectionItem extends XoopsObject
 			// Check to see if $smartlanguage_tag_handler is available
 
 			// Hack by marcan for condolegal.smartfactory.ca
-		/*	$this->setVar('title', "[fr]entrez le texte en français[/fr][en]entrez le texte en anglais[/en]");
-			$this->setVar('summary', "[fr]entrez le texte en français[/fr][en]entrez le texte en anglais[/en]");
-			$this->setVar('body', "[fr]entrez le texte en français[/fr][en]entrez le texte en anglais[/en]");
+		/*	$this->setVar('title', "[fr]entrez le texte en franï¿½ais[/fr][en]entrez le texte en anglais[/en]");
+			$this->setVar('summary', "[fr]entrez le texte en franï¿½ais[/fr][en]entrez le texte en anglais[/en]");
+			$this->setVar('body', "[fr]entrez le texte en franï¿½ais[/fr][en]entrez le texte en anglais[/en]");
 			// End of Hack by marcan for condolegal.smartfactory.ca
 
 			global $smartlanguage_tag_handler;
@@ -184,7 +184,7 @@ class SmartsectionItem extends XoopsObject
     {
 		$ret = $this->getVar("title", $format);
     	if (($format=='s') || ($format=='S') || ($format=='show')) {
-			$myts = &MyTextSanitizer::getInstance();
+			(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts = &MyTextSanitizer::getInstance();
 			$ret = $myts->displayTarea($ret);
 		}
 
@@ -841,7 +841,7 @@ if ( _SSECTION_FLAG_JP_CONVERT ) {
 		$highlight = true;
 		if($highlight && isset($_GET['keywords']))
 		{
-			$myts =& MyTextSanitizer::getInstance();
+			(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance();
 			$keywords=$myts->htmlSpecialChars(trim(urldecode($_GET['keywords'])));
 			$h= new SmartsectionKeyhighlighter ($keywords, true , 'smartsection_highlighter');
 			$item['title'] = $h->highlight($item['title']);

@@ -31,7 +31,7 @@
 
 error_reporting(0);
 include_once 'header.php';
-$myts =& MyTextSanitizer::getInstance();
+(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts =& MyTextSanitizer::getInstance();
 require_once XOOPS_ROOT_PATH.'/modules/smartobject/fpdf/fpdf.inc.php';
 
 global $smartsection_item_handler, $smartsection_category_handler, $xoopsUser, $xoopsConfig, $xoopsModuleConfig, $xoopsModule;
@@ -84,7 +84,7 @@ $content = str_replace( '&rdquo;', '"' , $content );
 $content = str_replace( '&ldquo;', '"' , $content );
 $content = str_replace( '&mdash;', '-' , $content );
 $content = str_replace( '&ndash;', '-' , $content );
-$content = str_replace( '•', '•' , $content );
+$content = str_replace( 'ï¿½', 'ï¿½' , $content );
 $content = str_replace( '</p><p>', '<br /><br />' , $content );
 
 $pdf_data['content'] = $content;
