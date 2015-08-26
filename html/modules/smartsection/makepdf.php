@@ -97,7 +97,7 @@ $puffer='<br /><br /><br />';
 //create the A4-PDF...
 $pdf_config['slogan']=$xoopsConfig['sitename'].' - '.$xoopsConfig['slogan'];
 // ML Hack by marcan
-$pdf_config['slogan'] = $myts->displayTarea($pdf_config['slogan']);
+$pdf_config['slogan'] = $myts->displayTarea($pdf_config['slogan'], 1);
 // End of ML Hack by marcan
 
 $pdf=new PDF();

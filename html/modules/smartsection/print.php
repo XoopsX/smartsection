@@ -55,9 +55,9 @@ global $xoopsConfig;
 (method_exists('MyTextSanitizer', 'sGetInstance') and $myts = MyTextSanitizer::sGetInstance()) || $myts = MyTextSanitizer::getInstance();
 $item=  $itemObj->toArray();
 $printtitle = $xoopsConfig['sitename']." - ".smartsection_metagen_html2text($categoryObj->getCategoryPath())." > ".$myts->displayTarea($item['title']);
-$printheader = $myts->displayTarea(smartsection_getConfig('headerprint'));
+$printheader = $myts->displayTarea(smartsection_getConfig('headerprint'), 1);
 $who_where = sprintf(_MD_SSECTION_WHO_WHEN, $itemObj->posterName(), $itemObj->datesub());
-$item['categoryname'] = $myts->displayTarea($categoryObj->name());
+$item['categoryname'] = $myts->htmlSpecialChars($categoryObj->name());
 
 $xoopsTpl->assign('printtitle', $printtitle);
 $xoopsTpl->assign('printlogourl', smartsection_getConfig('printlogourl'));
@@ -81,10 +81,10 @@ $xoopsTpl->assign('smartPopup', $smartPopup);
 $xoopsTpl->assign('current_language', $xoopsConfig['language']);
 
 if(smartsection_getConfig('footerprint')== 'item footer' || smartsection_getConfig('footerprint')== 'both'){
-	$xoopsTpl->assign('itemfooter', $myts->displayTarea( smartsection_getConfig('itemfooter')));
+	$xoopsTpl->assign('itemfooter', $myts->displayTarea( smartsection_getConfig('itemfooter'), 1));
 }
 if(smartsection_getConfig('footerprint')== 'index footer' || smartsection_getConfig('footerprint')== 'both'){
-	$xoopsTpl->assign('indexfooter', $myts->displayTarea( smartsection_getConfig('indexfooter')));
+	$xoopsTpl->assign('indexfooter', $myts->displayTarea( smartsection_getConfig('indexfooter'), 1));
 }
 
 $xoopsTpl->assign('display_whowhen_link', $xoopsModuleConfig['display_whowhen_link']);

@@ -58,7 +58,7 @@ switch ($op) {
 	break;
 
 	case "uploadanother";
-	smartsection_upload_file(true, false, $false);
+	smartsection_upload_file(true, true, $false);
 	exit;
 	break;
 

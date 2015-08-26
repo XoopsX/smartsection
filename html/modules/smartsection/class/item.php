@@ -183,10 +183,6 @@ class SmartsectionItem extends XoopsObject
 	function title($maxLength=0, $format="S")
     {
 		$ret = $this->getVar("title", $format);
-    	if (($format=='s') || ($format=='S') || ($format=='show')) {
-			(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts = &MyTextSanitizer::getInstance();
-			$ret = $myts->displayTarea($ret);
-		}
 
     	if ($maxLength != 0) {
         	if (!XOOPS_USE_MULTIBYTES) {

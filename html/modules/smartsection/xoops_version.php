@@ -21,7 +21,7 @@ $modversion['name'] = _MI_SSECTION_MD_NAME;
 // ---
 // version 2.20
 // $modversion['version'] = 2.15;
-$modversion['version'] = 2.22;
+$modversion['version'] = 2.23;
 // ---
 
 $modversion['description'] = _MI_SSECTION_MD_DESC;
@@ -65,15 +65,16 @@ $modversion['warning'] = _MI_SSECTION_WARNING_FINAL;
 
 $modversion['demo_site_url'] = "http://smartfactory.ca/modules/smartsection";
 $modversion['demo_site_name'] = "SmartFactory's Library";
-$modversion['support_site_url'] = "http://community.impresscms.org/modules/newbb/viewforum.php?forum=71";
-$modversion['support_site_name'] = "The ImpressCMS Community";
-$modversion['submit_bug'] = "http://community.impresscms.org/modules/newbb/viewforum.php?forum=71";
-$modversion['submit_feature'] = "http://community.impresscms.org/modules/newbb/viewforum.php?forum=71";
+$modversion['support_site_url'] = "https://github.com/XoopsX/smartsection";
+$modversion['support_site_name'] = "XOOPS X (ten) distribution";
+$modversion['submit_bug'] = "https://github.com/XoopsX/smartsection/issues";
+$modversion['submit_feature'] = "https://github.com/XoopsX/smartsection/pulls";
 
 $modversion['people']['developers'][] = "marcan (Marc-Andre Lanciault)";
 $modversion['people']['developers'][] = "Mithrandir (Jan Keller Pedersen)";
 $modversion['people']['developers'][] = "Sudhaker (Sudhaker Raj)";
 $modversion['people']['developers'][] = "stranger";
+$modversion['people']['developers'][] = "XOOPS X (ten) distribution";
 
 $modversion['people']['testers'][] = "Andy Cleff";
 $modversion['people']['testers'][] = "Felix Tousignant";

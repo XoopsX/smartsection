@@ -122,10 +122,6 @@ class SmartsectionCategory extends XoopsObject
 	function name($format="S")
 	{
 		$ret = $this->getVar("name", $format);
-		if (($format=='s') || ($format=='S') || ($format=='show')) {
-			(method_exists('MyTextSanitizer', 'sGetInstance') and $myts =& MyTextSanitizer::sGetInstance()) || $myts = &MyTextSanitizer::getInstance();
-			$ret = $myts->displayTarea($ret);
-		}
 		return $ret;
 	}
 

@@ -44,7 +44,7 @@ class SmartsectionFile extends XoopsObject
 		$this->initVar("name", XOBJ_DTYPE_TXTBOX, null, true, 255);
 		$this->initVar("description", XOBJ_DTYPE_TXTBOX, null, false, 255);
 		$this->initVar("filename", XOBJ_DTYPE_TXTBOX, null, true, 255);
-		$this->initVar("mimetype", XOBJ_DTYPE_TXTBOX, null, true, 64);
+		$this->initVar("mimetype", XOBJ_DTYPE_TXTBOX, null, true, 255);
 		$this->initVar("uid", XOBJ_DTYPE_INT, 0, false);
 		$this->initVar("datesub", XOBJ_DTYPE_INT, null, false);
 		$this->initVar("status", XOBJ_DTYPE_INT, 1, false);
@@ -77,13 +77,13 @@ class SmartsectionFile extends XoopsObject
 
         if(!isset($allowed_mimetypes)){
             $hMime =& xoops_getmodulehandler('mimetype');
-            $allowed_mimetypes = $hMime->checkMimeTypes($post_field);
-            if(!$allowed_mimetypes){
+            $allowed_mimetype = $hMime->checkMimeTypes($post_field);
+            if(!$allowed_mimetype){
                 $errors[] = _SMARTSECTION_MESSAGE_WRONG_MIMETYPE;
                 return false;
             }
         }
-        $uploader = new XoopsMediaUploader(smartsection_getUploadDir(), $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
+        $uploader = new XoopsMediaUploader(smartsection_getUploadDir(), array(), $maxfilesize, $maxfilewidth, $maxfileheight);
 
         if ($uploader->fetchMedia($post_field)) {
             return true;
@@ -104,8 +104,8 @@ class SmartsectionFile extends XoopsObject
 
         if(!isset($allowed_mimetypes)){
             $hMime =& xoops_getmodulehandler('mimetype');
-            $allowed_mimetypes = $hMime->checkMimeTypes($post_field);
-            if(!$allowed_mimetypes){
+            $allowed_mimetype = $hMime->checkMimeTypes($post_field);
+            if(!$allowed_mimetype){
                 return false;
             }
         }
@@ -122,7 +122,7 @@ class SmartsectionFile extends XoopsObject
             mkdir(smartsection_getUploadDir(), 0757);
         }
 
-        $uploader = new XoopsMediaUploader(smartsection_getUploadDir().'/', $allowed_mimetypes, $maxfilesize, $maxfilewidth, $maxfileheight);
+        $uploader = new XoopsMediaUploader(smartsection_getUploadDir().'/', array(), $maxfilesize, $maxfilewidth, $maxfileheight);
         if ($uploader->fetchMedia($post_field)) {
 
 // --- for multibyte language ---

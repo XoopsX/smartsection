@@ -83,10 +83,10 @@ function cloneFileFolder($path)
   }
 }
 
-cloneFileFolder('modules/smartsection');
+if (php_sapi_name() === 'cli') {
+    cloneFileFolder('modules/smartsection');
 
-echo "Happy cloning...\n";
-echo "check directory modules/" . $patterns['smartsection'] . " for cloned module \n";
-echo "Consider modifying new module by editing language/english/modinfo.php and images/mysection_slogo.png manually (if you care)\n";
+    echo "Happy cloning...\n";
+    echo "check directory modules/" . $patterns['smartsection'] . " for cloned module \n";
+    echo "Consider modifying new module by editing language/english/modinfo.php and images/mysection_slogo.png manually (if you care)\n";}
 
-?>

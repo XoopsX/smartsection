@@ -37,7 +37,7 @@ switch ($op) {
                 $form_view = new XoopsGroupPermForm("", $xoopsModule->getVar('mid'), "category_read", "");
                 $block_view[] = $item_list_view;
                 foreach ($block_view as $itemlists) {
-                    $form_view->addItem($itemlists['cid'], $myts->displayTarea($itemlists['title']));
+                    $form_view->addItem($itemlists['cid'], $myts->htmlSpecialChars($itemlists['title']));
                 }
             }
             echo $form_view->render();
@@ -55,7 +55,7 @@ switch ($op) {
         if ($xoopsDB->getRowsNum($result_view2)) {
             while ($myrow_view = $xoopsDB->fetcharray($result_view2)) {
                 $item_list_view['cid'] = $myrow_view['categoryid'];
-                $item_list_view['title'] = $myts->displayTarea($myrow_view['name']);
+                $item_list_view['title'] = $myts->htmlSpecialChars($myrow_view['name']);
                 $form_sumit = new XoopsGroupPermForm("", $xoopsModule->getVar('mid'), "item_submit", "");
                 $block_submit[] = $item_list_view;
                 foreach ($block_submit as $itemlists) {

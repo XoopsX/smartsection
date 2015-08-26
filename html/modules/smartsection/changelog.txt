@@ -1,5 +1,10 @@
 <!-- $Id: changelog.txt,v 1.2 2012/03/31 11:30:53 ohwada Exp $ -->
 
+<b><u>=> Version 2.21 or upper (since 2014-04-02)</u></b>
+
+- Development by XOOPS X (ten) distribution
+Please visit to <a href="https://github.com/XoopsX/smartsection/commits/master">Commits · XoopsX/smartsection</a>.
+
 <b><u>=> Version 2.20 (2012-03-31)</u></b>
 
 This version adds the following changes to 2.14 2.15

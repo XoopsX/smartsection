@@ -119,7 +119,7 @@ class XoopsMediaUploader
     {
         if (is_array($allowedMimeTypes))
         {
-            $this->allowedMimeTypes = &$allowedMimeTypes;
+            $this->allowedMimeTypes = $allowedMimeTypes;
         } 
         $this->uploadDir = $uploadDir;
         $this->maxFileSize = intval($maxFileSize);
@@ -378,15 +378,22 @@ class XoopsMediaUploader
             $this->setErrors('MIME type not allowed: ' . $this->mediaType);
         } 
 
-        if (!$this->_copyFile($chmod))
-        {
-            $this->setErrors('Failed uploading file: ' . $this->mediaName);
-        } 
+        //if (!$this->_copyFile($chmod))
+        //{
+        //    $this->setErrors('Failed uploading file: ' . $this->mediaName);
+        //} 
 
         if (count($this->errors) > 0)
         {
             return false;
+        }
+
+        if (!$this->_copyFile($chmod))
+        {
+            $this->setErrors('Failed uploading file: ' . $this->mediaName);
+            return false;
         } 
+
         return true;
     } 
 
@@ -538,4 +545,3 @@ class XoopsMediaUploader
     } 
 } 
 
-?>

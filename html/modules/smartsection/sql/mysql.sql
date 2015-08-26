@@ -88,7 +88,7 @@ CREATE TABLE `smartsection_files` (
   `name` varchar(255) NOT NULL default '',
   `description` TEXT NOT NULL,
   `filename` varchar(255) NOT NULL default '',
-  `mimetype` varchar(64) NOT NULL default '',
+  `mimetype` varchar(255) NOT NULL default '',
   `uid` int(6) default '0',
   `datesub` int(11) NOT NULL default '0',
   `status` int(1) NOT NULL default '-1',

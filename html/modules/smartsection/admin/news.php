@@ -58,7 +58,7 @@ if ($op == 'start')
 			$cat_cbox_options= array();
 			while (list ($cid, $pid, $cat_title, $art_count) = $xoopsDB->fetchRow ($result))
 			{
-				$cat_title = $myts->displayTarea($cat_title);
+				$cat_title = $myts->htmlSpecialChars($cat_title);
 				$cat_cbox_options[$cid] = "$cat_title ($art_count)";
 			}
 			$cat_label = new XoopsFormLabel(_AM_SSECTION_IMPORT_CATEGORIES, implode("<br />", $cat_cbox_options));

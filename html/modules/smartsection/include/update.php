@@ -6,6 +6,9 @@ if (!defined("XOOPS_ROOT_PATH")) {
 
 function xoops_module_update_smartsection($module) {
 
+	// Load module objects before load SmartDbUpdater
+	include_once XOOPS_ROOT_PATH.'/modules/smartsection/class/item.php';
+	include_once XOOPS_ROOT_PATH.'/modules/smartsection/class/category.php';
 	// Load SmartDbUpdater from the SmartObject Framework if present
 	$smartdbupdater = XOOPS_ROOT_PATH . "/modules/smartsection/class/smartdbupdater.php";
 	include_once($smartdbupdater);
@@ -29,6 +32,21 @@ function xoops_module_update_smartsection($module) {
          * @todo trap the errors
          */
     }
+	unset($table);
+
+	// Adding partial_view field
+	$table = new SmartDbTable('smartsection_files');
+	if (!$table->fieldExists('mimetype')) {
+		$table->addNewField('mimetype', "varchar(255) NOT NULL default ''");
+	} else {
+		$table->addAlteredField('mimetype', "varchar(255) NOT NULL default ''");
+	}
+	
+	if (!$dbupdater->updateTable($table)) {
+		/**
+		 * @todo trap the errors
+		 */
+	}
 	unset($table);
 
 	/**
@@ -69,11 +87,21 @@ function xoops_module_update_smartsection($module) {
 	echo "</code>";
 
     $feedback = ob_get_clean();
+
     if (method_exists($module, "setMessage")) {
         $module->setMessage($feedback);
     }
     else {
-        echo $feedback;
+        global $msgs;
+        // for Cube 2.1+
+        if( defined( 'XOOPS_CUBE_LEGACY' ) ) {
+            $root =& XCube_Root::getSingleton();
+            $root->mDelegateManager->add( 'Legacy.Admin.Event.ModuleUpdate.' . ucfirst('smartsection') . '.Success', 'smartsection_message_append_onupdate' ) ;
+            $msgs = array() ;
+        } else {
+            if( ! is_array( $msgs ) ) $msgs = array() ;
+        }
+        $msgs = array_filter(array_merge($msgs, array_map('strip_tags', preg_split('/(?:<br[^>]+?>)+/', $feedback))), 'strlen');
     }
 
     return true;
@@ -96,5 +124,16 @@ function xoops_module_install_smartsection($module) {
 	return true;
 }
 
+function smartsection_message_append_onupdate( &$module_obj , &$log )
+{
+	if( is_array( @$GLOBALS['msgs'] ) ) {
+		foreach( $GLOBALS['msgs'] as $message ) {
+			$message = trim($message);
+			if ($message) {
+				$log->add( $message ) ;
+			}
+		}
+	}
 
-?>
+	// use mLog->addWarning() or mLog->addError() if necessary
+}

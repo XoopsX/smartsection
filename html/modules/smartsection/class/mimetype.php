@@ -160,9 +160,12 @@ class smartsectionMimetypeHandler extends smartsectionBaseObjectHandler {
 		}
 		
 		foreach($result as $mime){
-		    $line = split(" ", $mime->getVar('mime_types'));
+		    $line = preg_split('/\s+/', $mime->getVar('mime_types', 'n'));
 		    foreach($line as $row){
-		        $allowed_mimetypes[] = array('type'=>$row, 'ext'=>$mime->getVar('mime_ext'));
+		        $row = trim($row);
+		        if ($row) {
+		            $allowed_mimetypes[] = array('type'=>$row, 'ext'=>$mime->getVar('mime_ext', 'n'));
+		        }
 		    }
 		}
 		return $allowed_mimetypes;
@@ -180,20 +183,19 @@ class smartsectionMimetypeHandler extends smartsectionBaseObjectHandler {
         $fextension = strtolower($farray[count($farray) -1]);
 	    
         $allowed_mimetypes = $this->getArray();
+        $ret = false;
         if(empty($allowed_mimetypes)){
-            return false;
+            return $ret;
         }
         
         foreach($allowed_mimetypes as $mime){
             //echo $mime['type'];
-            if($mime['type'] == $_FILES[$post_field]['type']){
-                $allowed_mimetypes = $mime['type'];
-                break;   
-            } else {
-                $allowed_mimetypes = false;
+            if($mime['type'] === $_FILES[$post_field]['type'] && preg_match('/\.'.preg_quote($mime['ext'], '/').'$/i', $_FILES[$post_field]['name'])){
+                $ret = $mime['type'];
+                break;
             }
         }
-        return $allowed_mimetypes;
+        return $ret;
     }
     
 	/**
@@ -250,5 +252,4 @@ class smartsectionMimetypeHandler extends smartsectionBaseObjectHandler {
         return $sql;
     }
 }   // end class
-    
-?>
+

@@ -76,7 +76,7 @@ define("_MD_SSECTION_FILE_STATUS", "ファイルの公開");
 define("_MD_SSECTION_FILE_STATUS_DSC", "いいえを選択した場合、ファイルは、ユーザー側から見えません。");
 define("_MD_SSECTION_FILE_TO_UPLOAD", "アップロード :");
 define("_MD_SSECTION_FILE_TYPE", "ファイルタイプ");
-define("_MD_SSECTION_FILE_UPLOAD_ANOTHER", "再度アップロード");
+define("_MD_SSECTION_FILE_UPLOAD_ANOTHER", "登録して続ける");
 define("_MD_SSECTION_FILENAME", "ファイル名");
 define("_MD_SSECTION_FILES_LINKED", "この記事の添付ファイル");
 define("_MD_SSECTION_FILEUPLOAD_ERROR", "ファイルをアップロード出来ません");

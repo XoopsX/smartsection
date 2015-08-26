@@ -157,7 +157,7 @@ define("_AM_SSECTION_FILE_NAME_DSC", "添付ファイルの表示名");
 define("_AM_SSECTION_FILE_STATUS", "ファイルの公開");
 define("_AM_SSECTION_FILE_STATUS_DSC", "いいえを選択した場合、ファイルは、ユーザー側から見えません。");
 define("_AM_SSECTION_FILE_TO_UPLOAD", "添付ファイル :");
-define("_AM_SSECTION_FILE_UPLOAD_ANOTHER", "再アップロード");
+define("_AM_SSECTION_FILE_UPLOAD_ANOTHER", "アップロードして続ける");
 define("_AM_SSECTION_FILEISDELETED","添付ファイルを削除しました") ;
 define("_AM_SSECTION_FILENAME", "ファイル名");
 define("_AM_SSECTION_FILES_LINKED", "この記事の添付ファイル");

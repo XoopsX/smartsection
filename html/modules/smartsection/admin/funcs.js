@@ -130,7 +130,7 @@ function goto_URL(object)
 	window.location.href = object.options[object.selectedIndex].value;
 }
 
-function toggle(id)
+function ssToggle(id)
 {
 	if (document.getElementById) { obj = document.getElementById(id); }
 	if (document.all) { obj = document.all[id]; }

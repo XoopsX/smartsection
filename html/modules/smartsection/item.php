@@ -196,7 +196,7 @@ $xoopsTpl->assign('next_item_url', $next_item_url);
 $xoopsTpl->assign('other_items', $xoopsModuleConfig['other_items_type']);
 
 $itemFooter = smartsection_getConfig('itemfooter');
-$itemFooter = $myts->displayTarea($itemFooter);
+$itemFooter = $myts->displayTarea($itemFooter, 1);
 $xoopsTpl->assign('itemfooter', $itemFooter);
 
 // tags support
