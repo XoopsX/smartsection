@@ -22,6 +22,7 @@ $modversion['name'] = _MI_SSECTION_MD_NAME;
 // version 2.20
 // $modversion['version'] = 2.15;
 $modversion['version'] = 2.23;
+$modversion['detailed_version'] = '2.23.1';
 // ---
 
 $modversion['description'] = _MI_SSECTION_MD_DESC;
