@@ -108,7 +108,7 @@ class SmartsectionPermissionHandler extends XoopsObjectHandler
 			$groups = is_object($xoopsUser) ? $xoopsUser->getGroups() : array(XOOPS_GROUP_ANONYMOUS);
 
 			//Get all allowed item ids in this module and for this user's groups
-			$userpermissions =& $gperm_handler->getItemIds($gperm_name, $groups, $smartModule->getVar('mid'));
+			$userpermissions = $gperm_handler->getItemIds($gperm_name, $groups, $smartModule->getVar('mid'));
 			$permissions[$gperm_name] = $userpermissions;
 		}
 		//Return the permission array
